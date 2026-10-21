@@ -1,0 +1,4 @@
+import "env" as env;
+export function load_env() -> env::Env {
+    return env::load(".env");
+};

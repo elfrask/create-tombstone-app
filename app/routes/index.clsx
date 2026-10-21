@@ -1,0 +1,13 @@
+from "tombstone" import App, Request, Response;
+from "./controllers/HomeController" import HomeController;
+from "./core/bootstrap" import AppContext;
+
+export function register_routes(app: App, context: AppContext) -> App {
+    app.get("/", (req: Request) -> Response {
+        return HomeController(req).index();
+    });
+    app.get("/health", (req: Request) -> Response {
+        return Response.json_response("{\"ok\":true}");
+    });
+    return app;
+};

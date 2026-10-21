@@ -1,0 +1,7 @@
+from "tombstone" import Database, Seeder;
+
+export class DatabaseSeeder: Seeder {
+    function run(db: Database) -> int {
+        return 0;
+    }
+};

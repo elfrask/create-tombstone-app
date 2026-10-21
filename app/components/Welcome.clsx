@@ -1,0 +1,10 @@
+from "tombstone" import raw, renderChildren;
+
+export function Welcome(props: Record<String, Value>, children: Cmx[]) -> Cmx {
+    return (
+        <section class="welcome">
+            <h1>{str(props.title)}</h1>
+            {raw(renderChildren(children))}
+        </section>
+    );
+};

@@ -1,0 +1,15 @@
+from "tombstone" import Request;
+
+export class CreateNoteRequest {
+    public var title: String;
+    public var body: String;
+
+    function main(req: Request) {
+        me.title = req.input("title").trim();
+        me.body = req.input("body").trim();
+    }
+
+    function valid() -> bool {
+        return me.title.length > 0;
+    }
+};

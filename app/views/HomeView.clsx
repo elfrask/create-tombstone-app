@@ -1,0 +1,10 @@
+from "./components/Welcome" import Welcome;
+
+export function HomeView() -> Cmx {
+    return (
+        <main class="container">
+            <Welcome title="Tombstone" />
+            <p>Tu aplicacion base esta lista.</p>
+        </main>
+    );
+};

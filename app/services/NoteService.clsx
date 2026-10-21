@@ -1,0 +1,13 @@
+from "./models/Note" import Note;
+from "tombstone" import ModelRow;
+
+export class NoteService {
+    public var notes: Note;
+
+    function main(notes: Note) { me.notes = notes; }
+
+    function all() -> ModelRow[] { return me.notes.all(); }
+    function create(title: String) -> ModelRow {
+        return me.notes.create({title: title});
+    }
+};

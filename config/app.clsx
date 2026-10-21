@@ -1,0 +1,19 @@
+from "./environment" import load_env;
+
+export class AppConfig {
+    public var name: String;
+    public var environment: String;
+    public var debug: bool;
+};
+
+export function load_config() -> AppConfig {
+    var values = load_env();
+    var c = AppConfig();
+    c.name = "Tombstone App";
+    c.environment = "development";
+    c.debug = true;
+    if (values.get("APP_NAME") != "") { c.name = values.get("APP_NAME"); };
+    if (values.get("APP_ENV") != "") { c.environment = values.get("APP_ENV"); };
+    c.debug = c.environment != "production";
+    return c;
+};

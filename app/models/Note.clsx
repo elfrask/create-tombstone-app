@@ -1,0 +1,22 @@
+import "orm" as orm;
+from "tombstone" import Model;
+
+export class Note: Model {
+    public var orm: orm::Orm;
+    public var table: String;
+    public var primary_key: String;
+    public var data: Record<String, String>;
+    public var exists: bool;
+    public var has_timestamps: bool;
+    public var uses_soft_deletes: bool;
+
+    function main(o: orm::Orm) {
+        me.orm = o;
+        me.table = "notes";
+        me.primary_key = "id";
+        me.data = {};
+        me.exists = false;
+        me.has_timestamps = true;
+        me.uses_soft_deletes = false;
+    }
+};

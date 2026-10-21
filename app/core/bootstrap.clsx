@@ -1,0 +1,13 @@
+from "../config/app" import AppConfig, load_config;
+
+export class AppContext {
+    public var config: AppConfig;
+
+    function main(config: AppConfig) {
+        me.config = config;
+    }
+};
+
+export function bootstrap() -> AppContext {
+    return AppContext(load_config());
+};

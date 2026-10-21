@@ -1,0 +1,19 @@
+from "tombstone" import App, TestClient;
+from "./routes/index" import register_routes;
+from "./core/bootstrap" import bootstrap;
+
+function main(args: String[]) -> int {
+    var context = bootstrap();
+    var app = App();
+    register_routes(app, context);
+    if (args.length > 0 && args[0] == "test") {
+        var client = TestClient(app);
+        client.get("/").assert_status(200);
+        client.get("/health").assert_status(200).assert_json("ok", "true");
+        print("OK: app");
+        return 0;
+    };
+    var port = 3000;
+    if (args.length > 0) { port = int(args[0]); };
+    return app.serve("127.0.0.1", port);
+};

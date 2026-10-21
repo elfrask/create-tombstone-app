@@ -1,0 +1,10 @@
+{
+  "name": "tombstone-app",
+  "version": "0.1.0",
+  "description": "Aplicacion base de Tombstone",
+  "entry": "app/main.clsx",
+  "pathModules": ["../../modules", "../../cls-repositories/tombstone/modules"],
+  "dependencies": {
+    "tombstone": "^0.2.0"
+  }
+}

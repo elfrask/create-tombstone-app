@@ -1,0 +1,10 @@
+import "sqlite" as sqlite;
+from "tombstone" import Database;
+from "../config/database" import load_database_config;
+
+export function connect() -> Database {
+    var config = load_database_config();
+    var db = Database(sqlite::SqliteDriver());
+    db.connect(config.path);
+    return db;
+};

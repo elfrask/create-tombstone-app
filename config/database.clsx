@@ -1,0 +1,13 @@
+from "./environment" import load_env;
+
+export class DatabaseConfig {
+    public var path: String;
+};
+
+export function load_database_config() -> DatabaseConfig {
+    var values = load_env();
+    var c = DatabaseConfig();
+    c.path = ":memory:";
+    if (values.get("DB_PATH") != "") { c.path = values.get("DB_PATH"); };
+    return c;
+};
