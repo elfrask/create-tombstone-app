@@ -1,0 +1,9 @@
+from "tombstone" import Template;
+
+export function Page(title: String, body: Cmx) -> Cmx {
+    var t = Template();
+    t.set_lang("es");
+    t.set_title(title);
+    t.add_style("/public/style.css");
+    return t.render(body);
+};

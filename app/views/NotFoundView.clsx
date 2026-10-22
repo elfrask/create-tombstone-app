@@ -1,0 +1,10 @@
+export function NotFoundView() -> Cmx {
+    return (
+        <main class="container not-found">
+            <p class="kicker">404</p>
+            <h1>Pagina no encontrada</h1>
+            <p>La ruta solicitada no existe.</p>
+            <a href="/">Volver al inicio</a>
+        </main>
+    );
+};

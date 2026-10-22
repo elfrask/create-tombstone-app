@@ -1,4 +1,6 @@
-from "tombstone" import App, Request, Response;
+from "tombstone" import App, Request, Response, render;
+from "./views/Layout" import Page;
+from "./views/NotFoundView" import NotFoundView;
 from "./controllers/HomeController" import HomeController;
 from "./core/bootstrap" import AppContext;
 
@@ -8,6 +10,11 @@ export function register_routes(app: App, context: AppContext) -> App {
     });
     app.get("/health", (req: Request) -> Response {
         return Response.json_response("{\"ok\":true}");
+    });
+    app.not_found((req: Request) -> Response {
+        var res = Response(404, render(Page("404", NotFoundView())));
+        res.headers["content-type"] = "text/html; charset=utf-8";
+        return res;
     });
     return app;
 };

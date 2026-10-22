@@ -1,8 +1,9 @@
 from "tombstone" import Controller, Response, render;
+from "./views/Layout" import Page;
 from "./views/HomeView" import HomeView;
 
 export class HomeController: Controller {
     function index() -> Response {
-        return Response.html(render(HomeView()));
+        return Response.html(render(Page("Inicio", HomeView())));
     }
 };

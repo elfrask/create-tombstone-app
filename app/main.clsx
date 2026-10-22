@@ -10,6 +10,7 @@ function main(args: String[]) -> int {
         var client = TestClient(app);
         client.get("/").assert_status(200);
         client.get("/health").assert_status(200).assert_json("ok", "true");
+        client.get("/no-existe").assert_status(404).assert_contains("Pagina no encontrada");
         print("OK: app");
         return 0;
     };

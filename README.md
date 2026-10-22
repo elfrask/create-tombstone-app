@@ -35,6 +35,10 @@ clx run app/main.clsx -- 3000
 clx run app/main.clsx -- test
 ```
 
+`app/views/Layout.clsx` centraliza el documento HTML de todas las paginas; las
+rutas usan `Page(...)`. `app.not_found(...)` devuelve la vista 404 con el mismo
+layout.
+
 La plantilla usa `pathModules` para resolver el repo CLS durante el desarrollo.
 En una app instalada, ajusta esas rutas a los modulos globales.
 
