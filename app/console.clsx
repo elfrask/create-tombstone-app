@@ -1,0 +1,89 @@
+# app/console.clsx - consola de la aplicacion generada por Tombstone.
+#
+#   tombstone migrate
+#   tombstone migrate:rollback
+#   tombstone migrate:status
+#   tombstone db:seed
+#   tombstone make:controller <Nombre>
+#   ... (make:model|migration|factory|action|resource)
+from "tombstone" import Database, MigrationRunner;
+from "tombstone" import make_controller, make_model, make_migration, make_factory, make_action, make_resource;
+from "../database/database" import connect;
+from "../database/migrations/index" import register_migrations;
+from "../database/seeds/DatabaseSeeder" import DatabaseSeeder;
+from "../config/database" import load_database_config;
+
+function usage() {
+    print("Uso: tombstone <comando>");
+    print("  serve [puerto]          (launcher)");
+    print("  test | test:unit | test:db | test:http | test:all  (launcher)");
+    print("  check [--strict] | build  (launcher)");
+    print("  migrate");
+    print("  migrate:rollback");
+    print("  migrate:status");
+    print("  db:seed");
+    print("  make:controller <Nombre>");
+    print("  make:model <Nombre>");
+    print("  make:migration <nombre>");
+    print("  make:factory <Nombre>");
+    print("  make:action <Nombre>");
+    print("  make:resource <Nombre>");
+};
+
+function make_command(cmd: String, args: String[]) -> int {
+    if (args.length < 2) {
+        print("Falta el nombre: " + cmd + " <Nombre>");
+        return 1;
+    };
+    var name = args[1];
+    var force = false;
+    for each a in (args) {
+        if (a == "--force" || a == "-f") { force = true; };
+    };
+    if (cmd == "make:controller") { make_controller(name, force); return 0; };
+    if (cmd == "make:model") { make_model(name, force); return 0; };
+    if (cmd == "make:migration") { make_migration(name, force); return 0; };
+    if (cmd == "make:factory") { make_factory(name, force); return 0; };
+    if (cmd == "make:action") { make_action(name, force); return 0; };
+    if (cmd == "make:resource") { make_resource(name, force); return 0; };
+    print("Comando desconocido: " + cmd);
+    return 1;
+};
+
+function runner_for(db: Database) -> MigrationRunner {
+    return register_migrations(MigrationRunner(db.orm));
+};
+
+function main(args: String[]) -> int {
+    if (args.length == 0) { usage(); return 1; };
+    var cmd = args[0];
+    if (cmd.startsWith("make:")) { return make_command(cmd, args); };
+
+    var db = connect();
+    var runner = runner_for(db);
+
+    if (cmd == "migrate") {
+        var n = runner.run();
+        print("migrated:" + n.toString() + " db=" + load_database_config().path);
+        return 0;
+    };
+    if (cmd == "migrate:rollback") {
+        print("rolled_back:" + runner.rollback().toString());
+        return 0;
+    };
+    if (cmd == "migrate:status") {
+        var st = runner.status();
+        if (st.length == 0) { print("no migrations"); }
+        for each s in (st) { print(s); };
+        return 0;
+    };
+    if (cmd == "db:seed") {
+        runner.run();
+        var n = DatabaseSeeder().run(db);
+        print("seeded:" + n.toString());
+        return 0;
+    };
+    print("Comando desconocido: " + cmd);
+    usage();
+    return 1;
+};

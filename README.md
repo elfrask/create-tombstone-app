@@ -31,9 +31,15 @@ public/         assets estaticos
 ```bash
 cp .env.example .env
 tombstone migrate
-clx run app/main.clsx -- 3000
-clx run app/main.clsx -- test
+tombstone serve 3000
+tombstone test
+tombstone test:unit
+tombstone check
+tombstone build
 ```
+
+`tombstone help` lista el resto: `migrate:rollback`, `migrate:status`,
+`db:seed` y los generadores `make:*`.
 
 `app/views/Layout.clsx` centraliza el documento HTML de todas las paginas; las
 rutas usan `Page(...)`. `app.not_found(...)` devuelve la vista 404 con el mismo

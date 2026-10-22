@@ -1,0 +1,11 @@
+# database/migrations/index.clsx - registro de migraciones de la app.
+#
+# Agrega tus migraciones al runner:
+#
+#   import "./2026_01_01_000001_create_notes" as m;
+#   return runner.add(m::CreateNotes());
+from "tombstone" import MigrationRunner;
+
+export function register_migrations(runner: MigrationRunner) -> MigrationRunner {
+    return runner;
+};

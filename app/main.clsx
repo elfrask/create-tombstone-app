@@ -3,10 +3,19 @@ from "./routes/index" import register_routes;
 from "./core/bootstrap" import bootstrap;
 
 function main(args: String[]) -> int {
+    var port = 3000;
+    var test_mode = false;
+    for each a in (args) {
+        if (a == "test") {
+            test_mode = true;
+        } elif (a != "") {
+            port = int(a);
+        };
+    };
     var context = bootstrap();
     var app = App();
     register_routes(app, context);
-    if (args.length > 0 && args[0] == "test") {
+    if (test_mode) {
         var client = TestClient(app);
         client.get("/").assert_status(200);
         client.get("/health").assert_status(200).assert_json("ok", "true");
@@ -14,7 +23,5 @@ function main(args: String[]) -> int {
         print("OK: app");
         return 0;
     };
-    var port = 3000;
-    if (args.length > 0) { port = int(args[0]); };
     return app.serve("127.0.0.1", port);
 };
